@@ -1,17 +1,16 @@
 package org.example.persistenciaDeDatos.archivo;
 
+
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RondaArchivo {
-    public RondaArchivo() throws IOException {
 
-        List<String> allLines = Files.readAllLines(Paths.get(".\\resultados.csv"));
-        for (int j = 1; j < allLines.size(); j++) {
-            String archivoResultado = allLines.get(j);
-            String[] elementosRes = archivoResultado.split(",");
+
 
         /*    Equipo equipo1 = new Equipo();
             equipo1.setNombre(elementosRes[1]);
@@ -26,12 +25,21 @@ public class RondaArchivo {
             partido.setGolesEquipo2(Integer.parseInt(elementosRes[3]));
 
             partidos.add(partido); */
+
+
+
+   // @Override
+    public List<ResultadoArchivo> listarTodos() throws IOException {
+        List<String> allLines = Files.readAllLines(Paths.get("resultados.csv"));
+        List<ResultadoArchivo> resultados = new ArrayList<>();
+        for (int j = 1; j < allLines.size(); j++) {
+            String archivoResultado = allLines.get(j);
+            String[] campos = archivoResultado.split(",");
+            ResultadoArchivo resultado = new ResultadoArchivo(Integer.parseInt(campos[0]) ,campos[1] , Integer.parseInt(campos[2]) , Integer.parseInt(campos[3]) , campos[4]);
+            resultados.add(resultado);
+        }
+        return resultados;
     }
-    }
-
-
-
-
 }
 
 

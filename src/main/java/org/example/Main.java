@@ -1,9 +1,14 @@
 package org.example;
 
 
+import org.example.persistenciaDeDatos.archivo.ParticipanteArchivo;
+import org.example.persistenciaDeDatos.archivo.RondaArchivo;
+
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         /*
         sacar dao
@@ -24,6 +29,20 @@ public class Main {
 
         /
          */
+
+      RondaArchivo estarategiaArchivo = new RondaArchivo();
+
+
+      System.out.println( estarategiaArchivo.listarTodos().toString());
+        System.out.println(estarategiaArchivo.listarTodos().get(0).getRonda());
+
+        ParticipanteArchivo participanteArchivo = new ParticipanteArchivo();
+
+        System.out.println(participanteArchivo.listarTodos().toString());
+
+
+
+
 
 
     }
