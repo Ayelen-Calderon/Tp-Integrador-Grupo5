@@ -1,7 +1,7 @@
-package org.example.persistenciaDeDatos.archivo;
+package org.example.persistenciaDeDatos;
 
-public class ResultadoArchivo {
-
+public class ResultadoPersistenciaDeDatos {
+    private int idResultado;
     private int ronda;
     private String equipo1;
     private int cantGoles1;
@@ -10,7 +10,7 @@ public class ResultadoArchivo {
     private String  equipo2;
 
 
-    public ResultadoArchivo(int ronda, String equipo1, int cantGoles1, int cantGoles2, String equipo2) {
+    public ResultadoPersistenciaDeDatos(int ronda, String equipo1, int cantGoles1, int cantGoles2, String equipo2) {
         this.ronda = ronda;
         this.equipo1 = equipo1;
         this.cantGoles1 = cantGoles1;
@@ -47,5 +47,13 @@ public class ResultadoArchivo {
                 " - " + cantGoles2 +" "+
                  equipo2 + '\n'
                 ;
+    }
+
+    public int getIdResultado() {
+        return idResultado;
+    }
+
+    public void setIdResultado(int idResultado) {
+        this.idResultado = idResultado;
     }
 }

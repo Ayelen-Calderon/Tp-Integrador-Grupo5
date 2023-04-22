@@ -1,6 +1,5 @@
 package org.example.persistenciaDeDatos.archivo;
-
-
+import org.example.persistenciaDeDatos.ResultadoPersistenciaDeDatos;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,13 +28,13 @@ public class RondaArchivo {
 
 
    // @Override
-    public List<ResultadoArchivo> listarTodos() throws IOException {
+    public List<ResultadoPersistenciaDeDatos> listarTodos() throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get("resultados.csv"));
-        List<ResultadoArchivo> resultados = new ArrayList<>();
+        List<ResultadoPersistenciaDeDatos> resultados = new ArrayList<>();
         for (int j = 1; j < allLines.size(); j++) {
             String archivoResultado = allLines.get(j);
             String[] campos = archivoResultado.split(",");
-            ResultadoArchivo resultado = new ResultadoArchivo(Integer.parseInt(campos[0]) ,campos[1] , Integer.parseInt(campos[2]) , Integer.parseInt(campos[3]) , campos[4]);
+            ResultadoPersistenciaDeDatos resultado = new ResultadoPersistenciaDeDatos(Integer.parseInt(campos[0]) ,campos[1] , Integer.parseInt(campos[2]) , Integer.parseInt(campos[3]) , campos[4]);
             resultados.add(resultado);
         }
         return resultados;
