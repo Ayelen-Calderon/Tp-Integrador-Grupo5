@@ -1,8 +1,10 @@
 package org.example;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class Ronda {
     private int id;
     private List<Partido> rondaPartido;
@@ -10,25 +12,11 @@ public class Ronda {
 
     public Ronda(int id) {
         this.id = id;
-        this.rondaPartido = rondaPartido = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-
-
-    public List<Partido> getRondaPartido() {
-        return rondaPartido;
-    }
-
-    public void setRondaPartido(List<Partido> rondaPartido) {
-        this.rondaPartido = rondaPartido;
+        rondaPartido = new ArrayList<>();
     }
 
     public void agregarPartido(Partido partido){
-        rondaPartido.add(partido);
+        this.rondaPartido.add(partido);
     }
 
     @Override

@@ -8,7 +8,8 @@ public class Pronostico {
     private Resultado pronostico;
 
 
-    public void darPronostico(Partido partido, Resultado pronostico) {
+
+    public Pronostico(Partido partido, Resultado pronostico) {
         this.partido = partido;
         this.pronostico = pronostico;
     }
@@ -18,7 +19,6 @@ public class Pronostico {
         if(partido.resultadoPartido() == pronostico){
             puntos = 1;
         }
-
         return puntos;
     }
     public int cantAciertos (){
@@ -26,7 +26,6 @@ public class Pronostico {
         if(partido.resultadoPartido() == pronostico){
             aciertos = 1;
         }
-
         return aciertos;
     }
 

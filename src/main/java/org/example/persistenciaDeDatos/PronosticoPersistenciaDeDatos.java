@@ -1,7 +1,8 @@
 package org.example.persistenciaDeDatos;
 
+import lombok.Data;
 import org.example.Resultado;
-
+@Data
 public class PronosticoPersistenciaDeDatos {
     private int idPronostico;
     private String participante;
@@ -27,25 +28,6 @@ public class PronosticoPersistenciaDeDatos {
                 ;
     }
 
-    public String getParticipante() {
-        return participante;
-    }
-
-    public String getEquipo1() {
-        return equipo1;
-    }
-
-    public String getEquipo2() {
-        return equipo2;
-    }
-
-    public Resultado getResultado() {
-        return resultado;
-    }
-
-    public int getIdResultado() {
-        return idPronostico;
-    }
 
     public void setIdResultado(int idResultado) {
         this.idPronostico = idResultado;

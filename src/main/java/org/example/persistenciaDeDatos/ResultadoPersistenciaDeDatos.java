@@ -1,11 +1,12 @@
 package org.example.persistenciaDeDatos;
 
+import lombok.Data;
+@Data
 public class ResultadoPersistenciaDeDatos {
     private int idResultado;
     private int ronda;
     private String equipo1;
     private int cantGoles1;
-
     private int cantGoles2;
     private String  equipo2;
 
@@ -18,26 +19,6 @@ public class ResultadoPersistenciaDeDatos {
         this.equipo2 = equipo2;
     }
 
-    public int getRonda() {
-        return ronda;
-    }
-
-    public String getEquipo1() {
-        return equipo1;
-    }
-
-    public int getCantGoles1() {
-        return cantGoles1;
-    }
-
-    public int getCantGoles2() {
-        return cantGoles2;
-    }
-
-    public String getEquipo2() {
-        return equipo2;
-    }
-
     @Override
     public String toString() {
         return
@@ -47,13 +28,5 @@ public class ResultadoPersistenciaDeDatos {
                 " - " + cantGoles2 +" "+
                  equipo2 + '\n'
                 ;
-    }
-
-    public int getIdResultado() {
-        return idResultado;
-    }
-
-    public void setIdResultado(int idResultado) {
-        this.idResultado = idResultado;
     }
 }

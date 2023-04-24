@@ -12,36 +12,14 @@ import java.util.List;
 
 public class Main {
 
-    public static <Rondah2> void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
 
-        /*
-        sacar dao
-        calculo de puntaje tiene que tener en cuenta las rondas.. entrega 2
-        calculo de puntaje es por persona
+        /*  ************CONEXION CON ARCHIVO ************/
+      /*  ParticipanteArchivo participanteDatos = new ParticipanteArchivo();
+        RondaArchivo rondaDato = new RondaArchivo();*/
 
-        main
-        unalista de rondas cada ronda con sus partidos
-
-        una lista de participante cada uno con su pronostico.
-
-        hacer un metodo por fuera del main para comparar que pida como parametro un participante
-        y las lista de las rondas y con eso calcular el puntaje de la persona sabiendo que si la persona acerto a todo
-        tiene un punto mas..
-        este metodo debe ser testeado.
-
-
-
-        /
-         */
-
-      /*  ************CONEXION CON ARCHIVO ************/
-
-       // ParticipanteArchivo participanteDatos = new ParticipanteArchivo();
-       // RondaArchivo rondaDato = new RondaArchivo();
-
-    /*        System.out.println(participanteArchivo.listarTodos().toString());
-            System.out.println( estarategiaArchivo.listarTodos().toString());*/
-
+      /* System.out.println(participanteDatos.listarTodos().toString());
+        System.out.println(rondaDato.listarTodos().toString());*/
 
         /*  ************CONEXION CON H2 ************/
 
@@ -52,28 +30,15 @@ public class Main {
         rondaDato.listarTodos();
 
 
+        List<Ronda>  rondas =   listarRondas(rondaDato.listarTodos());
+        List<Partido>   listaPartidos = listarPartidos(rondas);
+        List<Participante> participantesLista = listarParticipantes(participanteDatos.listarTodos(),listaPartidos);
 
 
-
-       List<Ronda>  rondas =   listarRondas(rondaDato.listarTodos());
-       List<Partido>   listaPartidos = listarPartidos(rondas);
-       List<Participante> participantesLista = listarParticipantes(participanteDatos.listarTodos(), listaPartidos);
-
-        /*System.out.println(rondas);
-        System.out.println(listaPartidos);*/
-        System.out.println(participantesLista);
-
-
-
-
-
-
-
-
-
-
-
-
+       // System.out.println(rondas);
+       // System.out.println(participanteDatos);
+       // System.out.println(listaPartidos);
+          System.out.println(participantesLista);
     }
 
     public static List<Ronda> listarRondas(List<ResultadoPersistenciaDeDatos> ronda) {
@@ -84,7 +49,7 @@ public class Main {
                 if (r.getId() == resultado.getRonda()) {
                     Equipo equipo1 = new Equipo(resultado.getEquipo1());
                     Equipo equipo2 = new Equipo(resultado.getEquipo2());
-                    Partido partido = new Partido(equipo1, equipo2);
+                    Partido partido = new Partido(r.getId(),equipo1, equipo2);
                     partido.setGolesEquipo1( resultado.getCantGoles1());
                     partido.setGolesEquipo2( resultado.getCantGoles2());
                     r.agregarPartido(partido);
@@ -96,7 +61,7 @@ public class Main {
                 Ronda r = new Ronda(resultado.getRonda());
                 Equipo equipo1 = new Equipo(resultado.getEquipo1());
                 Equipo equipo2 = new Equipo(resultado.getEquipo2());
-                Partido partido = new Partido(equipo1, equipo2);
+                Partido partido = new Partido(r.getId(),equipo1, equipo2);
                 partido.setGolesEquipo1( resultado.getCantGoles1());
                 partido.setGolesEquipo2( resultado.getCantGoles2());
                 r.agregarPartido(partido);
@@ -126,7 +91,6 @@ public class Main {
         return listaPartidos;
     }
 
-
     public static List<Participante> listarParticipantes(List<PronosticoPersistenciaDeDatos> listParticipante, List<Partido> partidos){
 
         List<Participante> participantes = new ArrayList<>();
@@ -138,10 +102,10 @@ public class Main {
                     for(Partido partido : partidos) {
                         if (participanteArchivo.getEquipo1().equals(partido.getEquipo1().getNombre()) &&
                                 participanteArchivo.getEquipo2().equals(partido.getEquipo2().getNombre())){
-                            Pronostico pronostico = new Pronostico();
-                            pronostico.darPronostico(partido , participanteArchivo.getResultado());
+                            Pronostico pronostico = new Pronostico(partido , participanteArchivo.getResultado());
 
-                            p.setPronosticoParticipante(pronostico);
+
+                            p.addPronosticoParticipante(pronostico);
 
                         }
                     }
@@ -154,21 +118,32 @@ public class Main {
                 for(Partido partido : partidos) {
                     if (participanteArchivo.getEquipo1().equals(partido.getEquipo1().getNombre()) &&
                             participanteArchivo.getEquipo2().equals(partido.getEquipo2().getNombre())){
-                        Pronostico pronostico = new Pronostico();
-                        pronostico.darPronostico(partido , participanteArchivo.getResultado());
-                        participante.setPronosticoParticipante(pronostico);
+                        Pronostico pronostico = new Pronostico(partido , participanteArchivo.getResultado());
+                        participante.addPronosticoParticipante(pronostico);
                     }
                 }
                 participantes.add(participante);
             }
         }
+        try {
+            int a=0;
+            int aux=participantes.get(0).getPronosticoParticipante().get(0).getPartido().getRonda();
+            for (Participante p : participantes) {
 
-        for (Participante p : participantes) {
-            p.puntosYCantitadDeAciertos();
+                p.puntosYCantitadDeAciertos();
+
+                if(p.getPronosticoParticipante().get(a).getPartido().getRonda()==aux){
+                    if(p.getCantAciertos()>=2){
+                        p.setBonus(true);
+                    }
+                }
+                p.sumarBonus();
+                a++;
+            }
+        }catch (Exception e){
+            System.out.println("No se encuentra el archivo properties");
         }
 
         return participantes;
     }
-    
-
 }
