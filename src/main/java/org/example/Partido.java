@@ -6,21 +6,17 @@ import lombok.Data;
 public class Partido {
 
     private Equipo equipo1 , equipo2;
-    private int golesEquipo1 , golesEquipo2;
+    private int golesEquipo1 , golesEquipo2, ronda;
     private Resultado resultado;
+    private int idPartido ;
+    private static int contador = 0;
 
-    public Partido(Equipo equipo1, Equipo equipo2) {
+    public Partido(int ronda, Equipo equipo1, Equipo equipo2) {
+        this.ronda=ronda;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
-        this.golesEquipo1 =0;
-        this.golesEquipo2=0;
+        idPartido = ++contador;
     }
-    public int agregarGolEquipo1(){
-        return golesEquipo1 ++;
-    };
-    public int agregarGolEquipo2(){
-        return golesEquipo2 ++;
-    };
 
     public Resultado resultadoPartido(){
 
@@ -33,5 +29,16 @@ public class Partido {
         else resultado = Resultado.GANADOR_EQUIPO2;
 
         return resultado;
-    };
+    }
+
+    @Override
+    public String toString() {
+        return  "Partido "+ idPartido +
+                ": equipo1: " + equipo1 +
+                " " + golesEquipo1 +
+                " - equipo2: " + equipo2 +
+                "  " + golesEquipo2 +
+                " resultado: " + resultado +
+                '\n';
+    }
 }
